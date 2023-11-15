@@ -1,6 +1,6 @@
 <template>
   <div class="icon">
-    <svg-icon type="mdi" :path="mdiPlus" :size="props.size"></svg-icon>
+    <Icons :icon="['fas', 'plus']" />
   </div>
 </template>
 

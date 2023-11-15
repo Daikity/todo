@@ -1,12 +1,10 @@
 <template>
   <div class="icon">
-    <svg-icon type="mdi" :path="mdiCog" :size="props.size"></svg-icon>
+    <Icons :icon="['fas', 'gear']" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { mdiCog } from "@mdi/js";
-
 const props = defineProps<{
   size: number;
 }>();
