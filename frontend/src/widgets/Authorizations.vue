@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import axios from "axios";
-import { type ApiResult } from "@/shared/models/interfaces"
+import { type ApiResult } from "@/app/models/interfaces"
+import {InputText} from "@/shared";
 
 const login = ref("");
 const password = ref("");
@@ -65,24 +66,18 @@ watch(password, () => {
 <template>
   <template>
     <form @submit.prevent="authorizations">
-      <div class="input-text">
-        <input
-          type="text"
-          :status="loginStatus.status"
-          v-model="login"
-          name="login"
-        />
-        <span :type="loginStatus.status">{{ loginStatus.message }}</span>
-      </div>
-      <div class="input-text">
-        <input
-          type="password"
-          :status="passwordStatus.status"
-          v-model="password"
-          name="password"
-        />
-        <span :type="passwordStatus.status">{{ passwordStatus.message }}</span>
-      </div>
+      <InputText
+        v-model="login"
+        :status="loginStatus.status"
+        label-text="Login"
+        :invalidText="loginStatus.message"
+      />
+      <InputText
+        v-model="password"
+        :status="passwordStatus.status"
+        label-text="Password"
+        :invalidText="passwordStatus.message"
+      />
       <button status="success">Login</button>
     </form>
   </template>

@@ -1,4 +1,4 @@
-import api from "@/entities/api";
+import api from "@/app/api";
 import { AxiosError } from 'axios'
 import type { ApiResult } from "@/shared/models/interfaces";
 import type { Router } from 'vue-router'

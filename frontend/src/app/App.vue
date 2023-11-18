@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { onMounted } from "vue";
-import Navbar from "@/widgets/navbar";
-import LeftMenu from "@/widgets/leftMenu";
+import { Navbar, LeftMenu } from "@/widgets";
 
 onMounted(() => {});
 </script>

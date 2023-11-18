@@ -19,6 +19,11 @@ const router = createRouter({
       component: () => import("@/pages/Mojo.vue"),
     },
     {
+      path: "/holidays",
+      name: "Holidays",
+      component: () => import("@/pages/Holidays.vue"),
+    },
+    {
       path: "/statistics",
       name: "Statistics",
       component: () => import("@/pages/Statistics.vue"),

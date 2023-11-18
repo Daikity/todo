@@ -1,48 +1,38 @@
 <template>
-  <div>
-    <div class="relative z-0">
+  <div class="form-input">
+    <div class="input-text" :label-position="labelPosition">
+      <label :visible="visibleLabel" v-if="props.labelText">
+        {{ props.labelText }}
+      </label>
       <input
         type="text"
-        @focus="focus"
-        aria-describedby="standard_error_help"
-        :class="
-          showInvalid
-            ? 'border-red-600 dark:border-red-500 dark:focus:border-red-500 focus:border-red-600'
-            : 'dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-600'
-        "
-        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none dark:text-white focus:outline-none focus:ring-0 peer border-gray-300"
-        placeholder=" "
+        name="login"
+        @blur="blur"
         v-model="value"
+        :status="status"
+        :placeholder="props.placeholder"
       />
-      <label
-        :class="
-          showInvalid
-            ? 'text-red-600 dark:text-red-500'
-            : ' peer-focus:text-blue-600 peer-focus:dark:text-blue-500'
-        "
-        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-      >
-        {{ props.placeholder }}
-      </label>
     </div>
-    <p
-      v-if="showInvalid && invalidText !== ''"
-      id="standard_error_help"
-      class="mt-2 text-xs text-red-600 dark:text-red-400"
+    <span
+      :type="status"
+      :visible="visibleErrorMessage"
+      v-if="(props.invalidText && status) || 'error'"
+      >{{ props.invalidText }}</span
     >
-      {{ invalidText }}
-    </p>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch, type Ref } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 
 interface Props {
-  placeholder?: string;
-  required?: boolean;
   modelValue: string;
+  required?: boolean;
+  status?: string;
+  labelText?: string;
+  placeholder?: string;
   invalidText?: string;
+  labelPosition?: string;
 }
 
 const emit = defineEmits(["update:modelValue", "update:isValid"]);
@@ -51,7 +41,19 @@ const props = withDefaults(defineProps<Props>(), {
   required: false,
   placeholder: " ",
   invalidText: "",
+  status: "",
+  labelPosition: "top",
 });
+
+const status = ref<string>(props.status);
+
+const visibleLabel = computed<string>(() =>
+  props.labelText ? "show" : "hide"
+);
+
+const visibleErrorMessage = computed<string>(() =>
+  props.labelText ? "show" : "hide"
+);
 
 const value = computed({
   get() {
@@ -62,33 +64,32 @@ const value = computed({
   },
 });
 
-const isValid = computed({
-  get() {
-    return String(value.value) !== "";
-  },
-  set(value: boolean) {
-    emit("update:isValid", value);
-  },
-});
-
-const showInvalid: Ref<boolean> = ref(false);
-
-const focus = (): void => {
+const blur = (): void => {
   if (props.required) {
-    showInvalid.value = value.value === "";
+    status.value = value.value === "" ? "error" : "success";
   }
 };
 
-const check = () => {
-  showInvalid.value = value.value === "";
-};
+watchEffect(() => {
+  if (props.status) {
+    status.value = props.status;
+  }
+});
 
 watch(value, (val: string) => {
   if (props.required) {
-    isValid.value = val !== "";
-    showInvalid.value = value.value === "";
+    status.value = val === "" ? "error" : "success";
   }
 });
-
-defineExpose({ check });
 </script>
+
+<style lang="sass" scoped>
+.form-input
+  @apply flex p-1 flex-col
+  .input-text
+    @apply gap-1
+    &[label-position="top"]
+      @apply flex flex-col
+    &[label-position="left"]
+      @apply flex
+</style>

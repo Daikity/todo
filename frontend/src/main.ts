@@ -6,15 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
 import '@/app/assets/index.sass'
-import faIcons from '@/shared/iconsLibs'
+import { IconsLibs } from '@/app/utils'
 
 import App from "./app";
-import api from "@/entities/api";
+import api from "@/app/api";
 import router from "./app/router";
 
 const app = createApp(App);
 
-faIcons.forEach((icon) => {
+IconsLibs.forEach((icon) => {
     library.add(icon)
 });
 

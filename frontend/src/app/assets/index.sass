@@ -21,7 +21,7 @@ button
 
 form
     @apply flex flex-col gap-2 p-3
-    @apply bg-white
+    @apply bg-zinc-800 rounded-md
 
 input
     border: 1px solid rgb(2 132 199 / 30%)
@@ -47,3 +47,9 @@ input
 
 span[type="error"]
     @apply text-rose-700 text-xs
+
+label[visible="hide"]
+    disabled: none
+
+span[visible="hide"]
+    disabled: none

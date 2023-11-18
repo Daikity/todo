@@ -3,6 +3,7 @@
   "scss.lint.unknownAtRules": "ignore",
   "css.customData": ["./.vscode/css-data.json", "./.vscode/scss-data.json"],
   "cSpell.words": [
+    "Axios",
     "Flowbite",
     "pinia",
     "tailwindcss"

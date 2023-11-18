@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, inject } from "vue";
-import { Registration } from "@/widgets/registration";
+import { Registration, Authorizations } from "@/widgets";
 // const login = ref("");
 
 const api = inject("$api");
@@ -12,8 +12,4 @@ const api = inject("$api");
   </div>
 </template>
 
-<style lang="scss">
-.input-text {
-  @apply flex flex-col;
-}
-</style>
+<style lang="sass"></style>
