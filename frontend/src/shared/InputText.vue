@@ -86,6 +86,10 @@ watch(value, (val: string) => {
 <style lang="sass" scoped>
 .form-input
   @apply flex p-1 flex-col
+  span[type=""]
+    display: none
+  span[type="success"]
+    display: none
   .input-text
     @apply gap-1
     &[label-position="top"]

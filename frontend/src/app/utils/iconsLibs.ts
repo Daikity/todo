@@ -1,4 +1,4 @@
-import { faUserSecret, faPlus, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faPlus, faGear, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 
-export default [faUserSecret, faPlus, faGear]
+export default [faUserSecret, faPlus, faGear, faXmark]

@@ -7,6 +7,12 @@ button
     @apply py-1 px-3 min-w-fit bg-sky-600
     @apply text-slate-200 text-center font-medium
     @apply border-solid border-2 rounded-md border-sky-600
+    &[button-type="transparent"]
+        @apply bg-transparent text-slate-100 border-none
+        &:hover
+            @apply text-slate-300 bg-transparent border-none
+        &:active
+            @apply text-slate-400 bg-transparent border-none
     &:hover
         @apply border-sky-700 bg-sky-700
     &:active
