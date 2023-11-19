@@ -2,33 +2,9 @@
 @tailwind components
 @tailwind utilities
 
-button
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s
-    @apply py-1 px-3 min-w-fit bg-sky-600
-    @apply text-slate-200 text-center font-medium
-    @apply border-solid border-2 rounded-md border-sky-600
-    &[button-type="transparent"]
-        @apply bg-transparent text-slate-100 border-none
-        &:hover
-            @apply text-slate-300 bg-transparent border-none
-        &:active
-            @apply text-slate-400 bg-transparent border-none
-    &:hover
-        @apply border-sky-700 bg-sky-700
-    &:active
-        @apply border-sky-800 bg-sky-800
-
-    &[status="success"]
-        @apply border-emerald-600 bg-emerald-600 text-slate-200
-        &:hover
-            @apply border-emerald-700 bg-emerald-700 text-slate-200
-        &:active
-            @apply border-emerald-800 bg-emerald-800 text-slate-200
-
 form
     @apply flex flex-col gap-2 p-3
     @apply bg-zinc-800 rounded-md
-
 input
     border: 1px solid rgb(2 132 199 / 30%)
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s
@@ -50,6 +26,30 @@ input
         &[status="success"]
             box-shadow: 0 0 0 0.2rem rgb(5 150 105 / 30%)
             @apply border-emerald-600
+button
+    transition: background-color 0.4s, color 0.4s, border-color 0.4s, box-shadow 0.4s
+    @apply flex items-center gap-1
+    @apply py-1 px-3 min-w-fit bg-sky-600
+    @apply text-slate-200 text-center font-medium
+    @apply border-solid border-2 rounded-md border-sky-600
+    &:hover
+        @apply border-sky-700 bg-sky-700
+    &:active
+        @apply border-sky-800 bg-sky-800
+    &[button-size="small"]
+        @apply h-9 text-sm
+    &[status="success"]
+        @apply border-emerald-600 bg-emerald-600 text-slate-200
+        &:hover
+            @apply border-emerald-700 bg-emerald-700 text-slate-200
+        &:active
+            @apply border-emerald-800 bg-emerald-800 text-slate-200
+    &[button-type="transparent"]
+        @apply bg-transparent text-slate-100 border-none
+        &:hover
+            @apply text-slate-300 bg-transparent border-none
+        &:active
+            @apply text-slate-400 bg-transparent border-none
 
 span[type="error"]
     @apply text-rose-700 text-xs

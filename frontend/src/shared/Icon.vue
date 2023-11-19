@@ -12,6 +12,5 @@ const props = defineProps<{
 
 <style scoped lang="sass">
 .icon
-  @apply flex justify-center w-full p-2 items-center h-1/6
-  height: 6%
+  @apply flex justify-center p-2 items-center
 </style>

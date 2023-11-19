@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<Props>(), {
   isNoCloseBtn: false,
 });
 
-const showDialog = ref<boolean>(false);
 const showBlocks = ref<boolean>(false);
 
 const close = () => {
@@ -27,11 +26,9 @@ watchEffect(() => {
     showBlocks.value = false;
     setTimeout(() => {
       emit("close");
-      showDialog.value = props.isOpen;
     }, 20);
   } else {
     showBlocks.value = true;
-    showDialog.value = props.isOpen;
   }
 });
 </script>
