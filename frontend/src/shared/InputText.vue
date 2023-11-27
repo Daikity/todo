@@ -26,20 +26,22 @@
 import { computed, ref, watch, watchEffect } from "vue";
 
 interface Props {
-  modelValue: string;
+  modelValue: string | number;
   required?: boolean;
   status?: string;
   labelText?: string;
   placeholder?: string;
   invalidText?: string;
   labelPosition?: string;
+  type?: "string" | "number";
 }
 
-const emit = defineEmits(["update:modelValue", "update:isValid"]);
+const emit = defineEmits(["update:modelValue", "update:isValid", "blur"]);
 
 const props = withDefaults(defineProps<Props>(), {
   required: false,
-  placeholder: " ",
+  type: "string",
+  placeholder: "",
   invalidText: "",
   status: "",
   labelPosition: "top",
@@ -59,8 +61,11 @@ const value = computed({
   get() {
     return props.modelValue;
   },
-  set(value: string) {
-    emit("update:modelValue", value);
+  set(value: string | number) {
+    if (props.type === "number") {
+      const regex = /\D/g;
+      emit("update:modelValue", String(value).replace(regex, ""));
+    } else emit("update:modelValue", value);
   },
 });
 
@@ -68,6 +73,7 @@ const blur = (): void => {
   if (props.required) {
     status.value = value.value === "" ? "error" : "success";
   }
+  emit("blur");
 };
 
 watchEffect(() => {
@@ -76,9 +82,9 @@ watchEffect(() => {
   }
 });
 
-watch(value, (val: string) => {
+watch(value, (val: string | number) => {
   if (props.required) {
-    status.value = val === "" ? "error" : "success";
+    status.value = !Boolean(val) ? "error" : "success";
   }
 });
 </script>

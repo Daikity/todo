@@ -63,3 +63,53 @@ export interface FamilyGuest {
     role: RoleGuest
     data: Guest
 }
+
+export interface Leisure {
+    id: string
+    title: string
+    time: number
+    description: string
+    maxPeoples: number
+}
+
+export interface Gifts {
+    id: string
+    title: string
+    cost: number
+    description: string
+}
+
+export interface Drinks {
+    id: string
+    title: string
+    cost: number
+    volume: number
+    alcohol: string
+    alcoholExposure: number
+}
+
+export interface Products {
+    id: string
+    title: string
+    cost: number
+    weight: number
+    description?: string
+}
+
+export interface Dishes {
+    id: string
+    title: string
+    quantity: number
+    showRecept: boolean
+    products: DishesProducts[]
+    receptProduct?: Products[]
+    cost?: number
+    weight: number
+    recept: string
+}
+
+export interface DishesProducts {
+    productId: string
+    weight: number
+    quantity: number
+}
