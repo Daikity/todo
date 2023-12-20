@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { Icon } from "@/shared";
 
 const test = ref("");
 </script>

@@ -3,9 +3,9 @@
 @tailwind utilities
 
 form
-    @apply flex flex-col gap-2 p-3
-    @apply bg-zinc-800 rounded-md
-input
+    @apply flex flex-col gap-2
+    // @apply bg-zinc-800 rounded-md
+input, textarea
     border: 1px solid rgb(2 132 199 / 30%)
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s
     @apply text-slate-700 px-2 py-1
@@ -26,6 +26,7 @@ input
         &[status="success"]
             box-shadow: 0 0 0 0.2rem rgb(5 150 105 / 30%)
             @apply border-emerald-600
+
 button
     transition: background-color 0.4s, color 0.4s, border-color 0.4s, box-shadow 0.4s
     @apply flex items-center gap-1

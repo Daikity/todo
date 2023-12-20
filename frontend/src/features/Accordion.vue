@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from "@/shared";
 import { ref } from "vue";
 
 const isOpen = ref<boolean>(false);
@@ -7,7 +6,7 @@ const isOpen = ref<boolean>(false);
 
 <template>
   <div class="flex flex-col gap-1">
-    <div class="flex gap-2 items-center w-full">
+    <div class="header">
       <Icon
         v-if="!isOpen"
         @click="isOpen = true"
@@ -23,7 +22,7 @@ const isOpen = ref<boolean>(false);
       <slot name="header" />
     </div>
     <Transition :duration="100">
-      <div class="w-full outer" v-if="isOpen">
+      <div class="w-full" v-if="isOpen">
         <slot name="body" />
       </div>
     </Transition>
@@ -31,6 +30,11 @@ const isOpen = ref<boolean>(false);
 </template>
 
 <style lang="scss" scoped>
+.header {
+  @apply flex gap-2 items-center w-full p-2;
+  @apply rounded-tl-md rounded-tr-md border-b-2 border-slate-600;
+}
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;

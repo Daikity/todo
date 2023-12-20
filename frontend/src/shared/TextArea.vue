@@ -4,7 +4,7 @@
       <label :visible="visibleLabel" v-if="props.labelText">
         {{ props.labelText }}
       </label>
-      <input
+      <textarea
         type="text"
         name="login"
         @blur="blur"
@@ -74,7 +74,6 @@ const blur = (): void => {
   if (props.required) {
     status.value = value.value === "" ? "error" : "success";
   }
-  emit("blur");
 };
 
 watchEffect(() => {

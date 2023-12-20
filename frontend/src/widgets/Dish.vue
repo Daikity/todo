@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { Dishes } from "@/app/models/interfaces";
 import { useHolidaysStore } from "@/app/stores";
-import { Button, InputText } from "@/shared";
-import { DropDown } from "@/features";
+import { Accordion } from "@/features";
 import { ref } from "vue";
 
 interface Props {
@@ -40,8 +39,8 @@ const getReceptQuantity = (id: string, products: any[]) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-1">
-    <DropDown>
+  <div class="main-container mb-3">
+    <Accordion>
       <template #header>
         <div class="flex justify-between w-full">
           <div class="flex gap-2 items-center">
@@ -71,7 +70,7 @@ const getReceptQuantity = (id: string, products: any[]) => {
           </div>
           <Button
             @click="holidaysStore.setQuantity(props.dish.id, 1)"
-            class="p-0"
+            class="px-3"
             button-type="transparent"
             icon-name="plus"
           >
@@ -80,7 +79,7 @@ const getReceptQuantity = (id: string, products: any[]) => {
         </div>
       </template>
       <template #body>
-        <div class="grid-container w-full">
+        <div class="grid-container">
           <div
             class="grid-item"
             :style="`grid-row: span ${props.dish.receptProduct?.length};`"
@@ -101,12 +100,41 @@ const getReceptQuantity = (id: string, products: any[]) => {
           </div>
         </div>
       </template>
-    </DropDown>
+    </Accordion>
   </div>
 </template>
 
-<style lang="scss">
-.input-text {
-  @apply flex flex-col;
+<style lang="scss" scoped>
+$grid-gap: 10px;
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 58.6% 20% 20%;
+  grid-template-rows: 1fr auto auto;
+  grid-gap: $grid-gap;
+  height: 100%;
+  width: 100%;
+  padding: 2em;
+
+  .grid-item {
+    border: 1px solid #58677d;
+    border-radius: 0.5em;
+    padding: 20px;
+    height: 100%;
+  }
+
+  .grid-item:first-child {
+    grid-column: 1;
+    @apply flex items-center justify-center;
+  }
+
+  .grid-item:not(:first-child) {
+    grid-column: span 2;
+  }
+}
+
+.main-container {
+  min-width: 30rem;
+  @apply flex flex-col gap-1 bg-slate-700 rounded-tl-lg rounded-tr-lg;
 }
 </style>

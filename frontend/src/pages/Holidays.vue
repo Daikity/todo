@@ -2,14 +2,16 @@
 import { ref, inject, provide } from "vue";
 import type { AxiosStatic } from "axios";
 import { useHolidaysStore } from "@/app/stores";
-import { Button, Icon, InputText } from "@/shared";
-import { Dialog, DropDown } from "@/features";
 import Dish from "@/widgets/Dish.vue";
+import type { Dishes } from "@/app/models/interfaces";
 
 const api = inject<AxiosStatic>("$api");
 const holidaysStore = useHolidaysStore();
 const newTitle = ref<string>("");
 const openDialog = ref<boolean>(false);
+const openDialogAddDish = ref<boolean>(false);
+const newDish = ref<Dishes>({} as Dishes);
+const newDishValidate = ref<{ nameField: string; isValid: boolean }[]>([]);
 
 const setHoliday = () => {
   if (newTitle.value === "") return;
@@ -17,7 +19,27 @@ const setHoliday = () => {
   openDialog.value = false;
 };
 
-console.log(holidaysStore.holiday);
+const addDish = (dish: Dishes) => {
+  const isNotValid = newDishValidate.value.find((el) => !el.isValid);
+
+  if (isNotValid) return;
+
+  console.log(dish);
+};
+
+const checkNewDishValidate = (isValid: boolean, nameField: string) => {
+  const haveChecker = newDishValidate.value.find(
+    (el) => el.nameField === nameField
+  );
+  if (haveChecker) {
+    haveChecker.isValid = isValid;
+  } else {
+    newDishValidate.value.push({
+      isValid,
+      nameField,
+    });
+  }
+};
 
 // Birthday of the daughter
 </script>
@@ -38,17 +60,23 @@ console.log(holidaysStore.holiday);
     </div>
     <div>the guests</div>
     <div>drinks</div>
-    <div class="bg-gray-800 p-3">
-      <Button class="w-2" button-type="transparent" icon-name="plus">
+    <div class="p-3">
+      <Button
+        @click="openDialogAddDish = true"
+        class="w-2"
+        button-type="transparent"
+        icon-name="plus"
+      >
         Add a dish
       </Button>
       <Dish v-for="dish in holidaysStore.dishes" :dish="dish" />
+      <div class="flex gap-3"></div>
     </div>
     <div>gifts</div>
     <div>leisure</div>
     <div>{{ String(holidaysStore.total) }}</div>
 
-    <Dialog :is-open="openDialog" @close="openDialog = false">
+    <Dialog :isOpen="openDialog" @close="openDialog = false">
       <template #header>
         <span>Enter the name of your holiday</span>
       </template>
@@ -62,32 +90,35 @@ console.log(holidaysStore.holiday);
         </form>
       </template>
     </Dialog>
+
+    <Dialog :isOpen="openDialogAddDish" @close="openDialogAddDish = false">
+      <template #header>
+        <span>Add the dish</span>
+      </template>
+      <template #default>
+        <form @submit.prevent="addDish(newDish)">
+          <InputText
+            v-model="newDish.title"
+            required
+            @isValid="checkNewDishValidate($event, 'title')"
+            labelText="Name"
+            invalidText="Dish name is required"
+          />
+          <TextArea
+            v-model="newDish.recept"
+            required
+            @isValid="checkNewDishValidate($event, 'recept')"
+            labelText="Recipe"
+            invalidText="Please write the recipe for the dish"
+          />
+        </form>
+        <span>Ингридиенты</span>
+      </template>
+      <template #footer>
+        <span>footer</span>
+      </template>
+    </Dialog>
   </div>
 </template>
 
-<style lang="scss">
-$grid-gap: 10px;
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 50% 20% 20%; // Три столбца
-  grid-template-rows: 1fr auto auto; // Три строки
-  grid-gap: $grid-gap; // Пространство между ячейками
-  height: 100%; // Высота контейнера
-
-  .grid-item {
-    border: 1px solid #ccc;
-    padding: 20px;
-    height: 100%;
-  }
-
-  .grid-item:first-child {
-    grid-column: 1; // Первый элемент занимает первый столбец
-    @apply flex items-center justify-center;
-  }
-
-  .grid-item:not(:first-child) {
-    grid-column: span 2; // Остальные элементы располагаются справа по контенту
-  }
-}
-</style>
+<style lang="scss"></style>

@@ -26,28 +26,7 @@ export const useHolidaysStore = defineStore('Holidays', () => {
       cost: 50
     }
   ]);
-  const dishesData = ref<Dishes[]>([
-    {
-      id: "1",
-      title: "Бутерброды",
-      showRecept: false,
-      weight: 10,
-      quantity: 1,
-      recept: "отрезать кусочек 2мл колбасы и хлеба. колбасу положить с верху",
-      products: [
-        {
-          productId: "1",
-          weight: 5,
-          quantity: 1,
-        },
-        {
-          productId: "2",
-          weight: 22,
-          quantity: 1,
-        }
-      ]
-    }
-  ]);
+  const dishesData = ref<Dishes[]>([]);
   
   
   const rolesGuest: Array<RoleGuest> = [
@@ -91,7 +70,6 @@ export const useHolidaysStore = defineStore('Holidays', () => {
   const drinks        = computed<Drinks[]>(() => drinksData.value);
   const products      = computed<Products[]>(() => productsData.value);
   const dishes        = computed<Dishes[]>(() => {
-    const result = []
     dishesData.value.forEach((dish: Dishes) => {
       dish.cost = 0
       dish.receptProduct = []
@@ -99,14 +77,14 @@ export const useHolidaysStore = defineStore('Holidays', () => {
         const article: Products = productsData.value.find((productData: Products) => productData.id === product.productId) as Products
         if (article) {
           dish.cost =+ Math.ceil(((product.weight / article.weight) * article.cost) * Number(dish.quantity))
-          dish.receptProduct.push(article)
+          dish.receptProduct?.push(article)
         }
         product.quantity = Math.ceil( (Number(dish.quantity) * product.weight) / article.weight)
       })
     })    
     return dishesData.value
   });
-  const total         = computed<number>(() => totalData.value);
+  const total = computed<number>(() => totalData.value);
   
   const holiday = computed(() => {
     return {
@@ -127,11 +105,20 @@ export const useHolidaysStore = defineStore('Holidays', () => {
     return rolesGuest.find((role: RoleGuest) => role.id === id);
   };
 
+  const getDishesData = async () => {
+    const response = await api?.get('dishes')
+    if(response){
+      dishesData.value = response.data
+    }
+  };
+
+  getDishesData()
+
   const setHoliday = (newTitle: string): void => {
     title.value = newTitle
   }
 
-  return { owners, guests, rolesGuest, titleHoliday, holiday, total, dishes, getRole, setHoliday, setQuantity }
+  return { owners, guests, rolesGuest, titleHoliday, holiday, total, dishes, getRole, setHoliday, setQuantity, getDishesData }
 })
 
 /**

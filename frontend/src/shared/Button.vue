@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Icon } from "@/shared";
-
 interface Props {
   iconPosition?: "left" | "right";
   iconName?: string;

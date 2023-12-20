@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Icon from "@/shared/Icon.vue";
 import { ref, watchEffect } from "vue";
 
 interface Props {
@@ -24,9 +23,7 @@ const close = () => {
 watchEffect(() => {
   if (!props.isOpen) {
     showBlocks.value = false;
-    setTimeout(() => {
-      emit("close");
-    }, 20);
+    close();
   } else {
     showBlocks.value = true;
   }

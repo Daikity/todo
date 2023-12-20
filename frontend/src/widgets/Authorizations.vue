@@ -2,7 +2,6 @@
 import { ref, watch } from "vue";
 import axios from "axios";
 import { type ApiResult } from "@/app/models/interfaces"
-import {InputText} from "@/shared";
 
 const login = ref("");
 const password = ref("");

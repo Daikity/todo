@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { InputText } from "@/shared";
 import { useRegistrationStore } from "@/app/stores";
 import type { ApiResult } from "@/app/models/interfaces";
 
