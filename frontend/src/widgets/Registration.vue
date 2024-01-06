@@ -76,6 +76,7 @@ watch(password, () => {
 
 <template>
   <form @submit.prevent="createUser">
+    <h1>Registration</h1>
     <InputText
       v-model="login"
       :status="loginStatus.status"
