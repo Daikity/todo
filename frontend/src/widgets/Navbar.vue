@@ -6,7 +6,10 @@ const routes = useRouter().options.routes;
 const route = useRoute();
 
 const menuData = routes.filter((el) => el.name !== "home") as any;
-
+const logout = () => {
+  localStorage.clear();
+  window.location.reload();
+}
 // const isActive = (path: string) => {
 //   return route.path !== path;
 // };
@@ -20,6 +23,9 @@ const menuData = routes.filter((el) => el.name !== "home") as any;
         <RouterLink :to="rout.path">
           {{ rout.name }}
         </RouterLink>
+      </li>
+      <li>
+        <a class="cursor-pointer" @click="logout">Log out</a>
       </li>
     </ul>
   </nav>

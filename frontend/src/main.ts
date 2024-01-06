@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import '@/app/assets/index.sass'
 import { IconsLibs } from '@/app/utils'
 import { Dialog } from "@/features";
-import { Button, Icon, InputText, TextArea } from "@/shared";
+import { Button, Icon, InputText, TextArea, InputPassword } from "@/shared";
 
 
 import { Registration, Authorizations, Navbar, LeftMenu, Dish } from "@/widgets";
@@ -32,6 +32,7 @@ app.component('Dialog', Dialog)
 
 // shared
 app.component('InputText', InputText)
+app.component('InputPassword', InputPassword)
 app.component('TextArea', TextArea)
 app.component('Button', Button)
 app.component('Icon', Icon)

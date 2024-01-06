@@ -34,7 +34,6 @@ const createSession = async (user_id: string, token: string, expires_at: Date): 
 export const authorizations = async (authData: AuthData): Promise<DataResponse> => {
     const users = GoogleAuth.usersData
     const user: User | undefined = users.find((el: User) => el.login === authData.login);
-    console.table(users);
 
     const checkUser = userAuthValid(authData.login, users);
     const checkPassword = passwordAuthValid(authData.password, user);

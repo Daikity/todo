@@ -6,7 +6,6 @@ const api = inject("$api");
 
 <template>
   <div class="w-80">
-    <Authorizations />
   </div>
 </template>
 
