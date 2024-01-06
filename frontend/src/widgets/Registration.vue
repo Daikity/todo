@@ -26,6 +26,9 @@ const createUser = () => {
     createUser
       .then((data) => {
         checkStatus(data.code, data.field, data.message);
+        localStorage.setItem('access_token', data.result.access_token);
+        localStorage.setItem('expires_at', data.result.expires_at);
+        window.location.reload();
       })
       .catch((error: ApiResult) => {
         checkStatus(error.code, error.field, error.message);
@@ -73,19 +76,20 @@ watch(password, () => {
 
 <template>
   <form @submit.prevent="createUser">
+    <h1>Registration</h1>
     <InputText
       v-model="login"
       :status="loginStatus.status"
       label-text="Login"
       :invalidText="loginStatus.message"
     />
-    <InputText
+    <InputPassword
       v-model="password"
       :status="passwordStatus.status"
       label-text="Password"
       :invalidText="passwordStatus.message"
     />
-    <button status="success">send</button>
+    <button status="success">Sign Up</button>
   </form>
 </template>
 
