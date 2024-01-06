@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import api from "@/entities/api";
-import type { ApiResult } from '@/shared/models/interfaces';
+import api from "@/app/api";
+import type { ApiResult } from '@/app/models/interfaces';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 export const useRegistrationStore = defineStore('registration', () => {  

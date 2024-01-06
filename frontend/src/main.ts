@@ -6,21 +6,44 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
 import '@/app/assets/index.sass'
-import faIcons from '@/shared/iconsLibs'
+import { IconsLibs } from '@/app/utils'
+import { Dialog } from "@/features";
+import { Button, Icon, InputText, TextArea } from "@/shared";
+
+
+import { Registration, Authorizations, Navbar, LeftMenu, Dish } from "@/widgets";
 
 import App from "./app";
-import api from "@/entities/api";
-import router from "./app/router";
+import api from "@/app/api";
+import router from "@/app/router";
 
 const app = createApp(App);
 
-faIcons.forEach((icon) => {
+IconsLibs.forEach((icon) => {
     library.add(icon)
 });
 
+// libs
 app.provide('$api', api)
 app.component('Icons', FontAwesomeIcon)
 
+// features
+app.component('Dialog', Dialog)
+
+// shared
+app.component('InputText', InputText)
+app.component('TextArea', TextArea)
+app.component('Button', Button)
+app.component('Icon', Icon)
+
+//widgets
+app.component('Authorizations', Authorizations)
+app.component('Registration', Registration)
+app.component('LeftMenu', LeftMenu)
+app.component('Navbar', Navbar)
+app.component('Dish', Dish)
+
+// app
 app.use(createPinia());
 app.use(router);
 

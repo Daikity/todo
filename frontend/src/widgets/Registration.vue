@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, watch, inject } from "vue";
-import type { ApiResult } from "@/shared/models/interfaces";
-import api from "@/entities/api";
-import { useRegistrationStore } from "@/widgets/registration/api";
+import { ref, watch } from "vue";
+import { useRegistrationStore } from "@/app/stores";
+import type { ApiResult } from "@/app/models/interfaces";
 
 const registrationStore = useRegistrationStore();
 const login = ref("");
@@ -24,7 +23,6 @@ const createUser = () => {
       login.value,
       password.value
     );
-
     createUser
       .then((data) => {
         checkStatus(data.code, data.field, data.message);
@@ -75,31 +73,20 @@ watch(password, () => {
 
 <template>
   <form @submit.prevent="createUser">
-    <div class="input-text">
-      <input
-        type="text"
-        :status="loginStatus.status"
-        v-model="login"
-        name="login"
-        placeholder="test"
-      />
-      <span :type="loginStatus.status">{{ loginStatus.message }}</span>
-    </div>
-    <div class="input-text">
-      <input
-        type="password"
-        :status="passwordStatus.status"
-        v-model="password"
-        name="password"
-      />
-      <span :type="passwordStatus.status">{{ passwordStatus.message }}</span>
-    </div>
+    <InputText
+      v-model="login"
+      :status="loginStatus.status"
+      label-text="Login"
+      :invalidText="loginStatus.message"
+    />
+    <InputText
+      v-model="password"
+      :status="passwordStatus.status"
+      label-text="Password"
+      :invalidText="passwordStatus.message"
+    />
     <button status="success">send</button>
   </form>
 </template>
 
-<style lang="scss">
-.input-text {
-  @apply flex flex-col;
-}
-</style>
+<style lang="sass"></style>

@@ -14,3 +14,11 @@ export const createUserError = {
     message: 'An error occurred when creating a user',
     dataError: null
 }
+
+export const authorizationsError = {
+    field: "authorizations",
+    code: 500,
+    title: 'Authorizations error',
+    message: 'An error occurred during authorization',
+    dataError: null
+}
