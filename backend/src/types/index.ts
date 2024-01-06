@@ -13,13 +13,20 @@ export interface AuthData {
 }
 
 export interface User {
-    age:         number | null
-    role:        string | null
-    mojo:        string | null
-    login:       string
-    password:    string
-    fullName:    string | null
-    todoListId:  number | null
+    id: string
+    age: number | null
+    role: string | null
+    mojo: string | null
+    login: string
+    password: string
+    fullName: string | null
+    todoListId: number | null
     dateCreated: Date
-    lastSession: Date   | null
+    sessionExpiresAt: Date | null
+}
+
+export interface Session {
+    user_id: string
+    access_token: string
+    expires_at: Date
 }

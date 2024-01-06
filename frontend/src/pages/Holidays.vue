@@ -2,7 +2,6 @@
 import { ref, inject, provide } from "vue";
 import type { AxiosStatic } from "axios";
 import { useHolidaysStore } from "@/app/stores";
-import Dish from "@/widgets/Dish.vue";
 import type { Dishes } from "@/app/models/interfaces";
 
 const api = inject<AxiosStatic>("$api");
